@@ -6,7 +6,7 @@ type Producto = {
   id: string;
   nombre: string;
   precio: string;
-  imagen: string;
+  imagen: string; // Aquí irá el enlace completo a Drive
 };
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -23,20 +23,13 @@ export default function Home() {
   return (
     <main className="catalogo-container">
       <h1 className="titulo">Catálogo</h1>
-
       <div className="grid-catalogo">
         {data.map((item) => (
-          <div
-            key={item.id}
-            className="producto bg-white shadow-md rounded-xl p-3 relative transition-transform hover:scale-105 text-center"
-          >
-            <span className="id-tag absolute top-2 left-2 text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded">
-              ID: {item.id}
-            </span>
+          <div key={item.id} className="producto">
             <img
               src={item.imagen}
               alt={item.nombre}
-              className="mx-auto mb-2 h-32 object-contain"
+              className="producto-img"
             />
             <h2 className="nombre">{item.nombre}</h2>
             <p className="precio">{item.precio}</p>
