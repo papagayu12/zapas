@@ -1,48 +1,45 @@
-// app/page.tsx
+'use client';
+
+import useSWR from 'swr';
+
+type Producto = {
+  id: string;
+  nombre: string;
+  precio: string;
+  imagen: string;
+};
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 export default function Home() {
-  const zapatillas = [
-    {
-      id: 1,
-      nombre: "Nike Air Force 1",
-      precio: "129,99 €",
-      imagen: "/zapas/nikeairforce1.jpg",
-    },
-    {
-      id: 2,
-      nombre: "Adidas Superstar",
-      precio: "89,99 €",
-      imagen: "/zapas/adidassuperstar.jpg",
-    },
-    {
-      id: 3,
-      nombre: "New Balance 574",
-      precio: "99,99 €",
-      imagen: "/zapas/nb574.jpg",
-    },
-    {
-      id: 4,
-      nombre: "Puma Suede",
-      precio: "79,99 €",
-      imagen: "/zapas/pumasuede.jpg",
-    },
-    {
-      id: 5,
-      nombre: "Puma Suede",
-      precio: "79,99 €",
-      imagen: "/zapas/pumasuede.jpg",
-    },
-  ];
+  const { data, error } = useSWR<Producto[]>(
+    'https://api.sheetbest.com/sheets/b83148d0-46cc-42f8-8739-9e6cc479a47f',
+    fetcher
+  );
+
+  if (error) return <p>Error cargando productos.</p>;
+  if (!data) return <p>Cargando...</p>;
 
   return (
     <main className="catalogo-container">
       <h1 className="titulo">Catálogo</h1>
 
       <div className="grid-catalogo">
-        {zapatillas.map((zapa) => (
-          <div key={zapa.id} className="producto">
-            <img src={zapa.imagen} alt={zapa.nombre} />
-            <h2 className="nombre">{zapa.nombre}</h2>
-            <p className="precio">{zapa.precio}</p>
+        {data.map((item) => (
+          <div
+            key={item.id}
+            className="producto bg-white shadow-md rounded-xl p-3 relative transition-transform hover:scale-105 text-center"
+          >
+            <span className="id-tag absolute top-2 left-2 text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded">
+              ID: {item.id}
+            </span>
+            <img
+              src={item.imagen}
+              alt={item.nombre}
+              className="mx-auto mb-2 h-32 object-contain"
+            />
+            <h2 className="nombre">{item.nombre}</h2>
+            <p className="precio">{item.precio}</p>
           </div>
         ))}
       </div>
