@@ -6,7 +6,7 @@ type Producto = {
   id: string;
   nombre: string;
   precio: string;
-  imagen: string; // Aquí irá el enlace completo a Drive
+  imagen: string; // Aquí guardas el enlace directo a la imagen
 };
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -27,7 +27,7 @@ export default function Home() {
         {data.map((item) => (
           <div key={item.id} className="producto">
             <img
-              src={item.imagen}
+              src={item.imagen}  // Usa directamente la URL desde la hoja
               alt={item.nombre}
               className="producto-img"
             />

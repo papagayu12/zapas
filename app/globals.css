@@ -38,7 +38,7 @@ body {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-.imagen {
+.producto-img {
   display: block;
   margin: 0 auto 0.5rem;
   max-height: 100px;
@@ -56,15 +56,4 @@ body {
 .precio {
   font-size: 0.85rem;
   color: #4caf50;
-}
-
-.id-tag {
-  position: absolute;
-  top: 6px;
-  left: 6px;
-  font-size: 0.65rem;
-  background: #e0e0e0;
-  padding: 2px 6px;
-  border-radius: 6px;
-  color: #333;
 }
